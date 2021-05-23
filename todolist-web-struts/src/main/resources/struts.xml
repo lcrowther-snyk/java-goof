@@ -39,10 +39,10 @@
         </action>
 
         <action name="upload.do" class="io.github.benas.todolist.web.action.todo.TodoAction" method="doUpload">
-            <interceptor-ref name="loginInterceptor"/>
+            <!-- <interceptor-ref name="loginInterceptor"/> -->
             <interceptor-ref name="defaultStack"/>
             <interceptor-ref name="fileUpload"/>
-            <result name="success">/WEB-INF/views/todo/create.jsp</result>
+            <result name="success">/WEB-INF/views/user/files.jsp</result>
         </action>
 
         <action name="update" class="io.github.benas.todolist.web.action.todo.TodoAction" method="update">
@@ -94,6 +94,12 @@
             <result>/WEB-INF/views/user/home.jsp</result>
         </action>
 
+        <action name="files" class="io.github.benas.todolist.web.action.user.FilesAction">
+            <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+            <result>/WEB-INF/views/user/files.jsp</result>
+        </action>
+
         <action name="logout" class="io.github.benas.todolist.web.action.user.SessionAction" method="doLogout">
             <interceptor-ref name="loginInterceptor"/>
             <interceptor-ref name="defaultStack"/>
@@ -137,7 +143,7 @@
     <package name="public" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
-        
+
         <action name="index" class="io.github.benas.todolist.web.action.IndexAction">
             <result>/WEB-INF/views/index.jsp</result>
         </action>
@@ -145,6 +151,11 @@
         <action name="about" class="io.github.benas.todolist.web.action.AboutAction">
             <result>/WEB-INF/views/about.jsp</result>
         </action>
+
+        <action name="files" class="io.github.benas.todolist.web.action.FilesAction">
+            <result>/WEB-INF/views/files.jsp</result>
+        </action>
+
 
         <action name="login" class="io.github.benas.todolist.web.action.user.SessionAction" method="login">
             <result>/WEB-INF/views/user/login.jsp</result>

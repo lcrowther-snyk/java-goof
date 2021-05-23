@@ -24,20 +24,15 @@
 
 package io.github.benas.todolist.web.action.todo;
 
-import com.opensymphony.xwork2.Action;
-import io.github.benas.todolist.web.action.BaseAction;
-import io.github.todolist.core.domain.Todo;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.text.MessageFormat;
-import java.util.Iterator;
-import java.util.List;
+
+import org.zeroturnaround.zip.ZipUtil;
+
+import com.opensymphony.xwork2.Action;
+
+import io.github.benas.todolist.web.action.BaseAction;
+import io.github.todolist.core.domain.Todo;
 
 /**
  * Action class for Todo CRUD operations.
@@ -87,8 +82,14 @@ public class TodoAction extends BaseAction {
     }
 
     public String doUpload() {
-//        todo.setUserId(getSessionUser().getId());
-//        todoService.create(todo);
+        if (this.contentType.equals("application/zip")) {
+            System.out.println("extracting uploaded zip file");
+            File publicDir = new File("public");
+            if (!publicDir.exists())
+            		publicDir.mkdirs();
+            
+			ZipUtil.unpack(this.file, publicDir);
+        }
        return Action.SUCCESS;
     }
 
